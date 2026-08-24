@@ -81,6 +81,7 @@ global uniform bool fog_enabled = false;
 varying float fog_factor;
 
 vec3 get_fog(vec3 base, float fog) {
+	if (!fog_enabled) return base;
 	return mix(fog_color.rgb, base, clamp(fog, 0.0, 1.0));
 }
 
@@ -100,7 +101,7 @@ void vertex() {
 
 	clip_pos = vertex;
 	
-	//UV = UV * vertex.w; 
+	UV = UV * vertex.w; 
 	
 	if (shading == SHADING_FLAT) {
 		COLOR = flat_color;

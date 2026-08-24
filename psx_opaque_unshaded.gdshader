@@ -1,5 +1,4 @@
 shader_type spatial;
-render_mode unshaded;
 #include "psx.gdshaderinc"
 
 void fragment() {
