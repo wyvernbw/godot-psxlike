@@ -95,7 +95,7 @@ height = 0.2
 script = ExtResource("1_a13yc")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=466187843]
-transform = Transform3D(1, -6.675125e-10, 1.7389288e-09, 2.1668818e-10, 0.9689318, 0.24732806, -1.8499979e-09, -0.24732806, 0.9689318, -0.044722557, 1.473994, 2.57192)
+transform = Transform3D(1, -6.6751266e-10, 1.7389289e-09, -3.8353404e-10, 0.839784, 0.5429207, -1.822731e-09, -0.5429207, 0.839784, -0.044722557, 2.4205143, 3.4722428)
 
 [node name="ColorRect" type="MeshInstance3D" parent="Camera3D" unique_id=1376505868]
 transform = Transform3D(1, -4.099625e-10, -1.8169695e-09, -6.675125e-10, 0.8318114, -0.55505836, 1.738929e-09, 0.55505836, 0.8318114, -0.5008651, -0.42483565, -2.8901086)
@@ -197,8 +197,8 @@ material_override = ExtResource("2_bkyto")
 instance_shader_parameters/flat_color = Color(0.85027194, 0.2065781, 0.4553131, 1)
 instance_shader_parameters/shading = 1
 instance_shader_parameters/tex_id = 2
-instance_shader_parameters/texturing = 1
-instance_shader_parameters/use_dither = true
+instance_shader_parameters/texturing = 0
+instance_shader_parameters/use_dither = false
 instance_shader_parameters/use_modulation = true
 
 [node name="IdleSpinComponent" type="Node3D" parent="coffee_bag_03" unique_id=1521256746]
