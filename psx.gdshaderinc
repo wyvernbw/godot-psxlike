@@ -176,8 +176,8 @@ struct PipelineInput {
 };
 
 PipelineOutput pipeline_transparent(PipelineInput input, sampler2D screen_tex, vec2 screen_uv) {
-	//vec2 uv = input.uv / clip_pos.w;
-	vec2 uv = input.uv;
+	vec2 uv = input.uv / clip_pos.w;
+	//vec2 uv = input.uv;
 	float fog = fog_factor / clip_pos.w;
 	PipelineOutput output;
 	output.albedo = get_albedo(input.vert_color, textures[tex_id], uv);
@@ -187,14 +187,14 @@ PipelineOutput pipeline_transparent(PipelineInput input, sampler2D screen_tex, v
 	output.albedo = to_rgb5(output.albedo);
 	output.albedo = to_linear(output.albedo);
 
-	output.depth = depth;
+	//output.depth = depth;
 	
 	return output;
 }
 
 PipelineOutput pipeline_opaque(PipelineInput input) {
-	//vec2 uv = input.uv / clip_pos.w;
-	vec2 uv = input.uv;
+	vec2 uv = input.uv / clip_pos.w;
+	//vec2 uv = input.uv;
 	float fog = clip_pos.w;
 	PipelineOutput output;
 	output.albedo = get_albedo(input.vert_color, textures[tex_id], uv);
@@ -203,11 +203,11 @@ PipelineOutput pipeline_opaque(PipelineInput input) {
 	output.albedo = to_rgb5(output.albedo);
 	output.albedo = to_linear(output.albedo);
 	
-	output.depth = depth;
+	//output.depth = depth;
 	
 	return output;
 }
 
 #define APPLY(o)\
 	ALBEDO = o.albedo;\
-	DEPTH = o.depth;
+	//DEPTH = o.depth;
