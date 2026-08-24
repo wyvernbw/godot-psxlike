@@ -54,6 +54,8 @@ shader = SubResource("Shader_5g6qc")
 [sub_resource type="QuadMesh" id="QuadMesh_cn6ar"]
 lightmap_size_hint = Vector2i(27, 27)
 size = Vector2(5, 5)
+subdivide_width = 3
+subdivide_depth = 3
 orientation = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bkyto"]
@@ -157,7 +159,7 @@ mesh = SubResource("SphereMesh_ala5m")
 surface_material_override/0 = ExtResource("2_bkyto")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1574751594]
-transform = Transform3D(0.8915902, 0, 0.45284316, 0, 1, 0, -0.45284316, 0, 0.8915902, -0.9238361, 0.36397493, 0)
+transform = Transform3D(0.8915902, 0, 0.45284316, 0, 1, 0, -0.45284316, 0, 0.8915902, -0.8018251, 0.36397493, 0)
 material_override = ExtResource("1_2gyu8")
 instance_shader_parameters/flat_color = Color(8.471012e-06, 0.988643, 0.7872181, 1)
 instance_shader_parameters/semi_transparency = 0
@@ -187,7 +189,7 @@ spin_speed = 0.8
 bobbing_dist = 1.0
 
 [node name="coffee_bag_03" parent="." unique_id=364752854 instance=ExtResource("6_gmcfr")]
-transform = Transform3D(0.60621774, 0, -0.35, 0, 0.7, 0, 0.35, 0, 0.60621774, 0.6534946, 0.25103235, 0.54861903)
+transform = Transform3D(0.60621774, 0, -0.35, 0, 0.7, 0, 0.35, 0, 0.60621774, 0.61089313, 0.25103235, 0.34118867)
 
 [node name="Cube" parent="coffee_bag_03" index="0" unique_id=691518568]
 transform = Transform3D(-0.64225495, 0, -0.76649165, 0, 1.0000001, 0, 0.76649165, 0, -0.64225495, 0, 0, 0)

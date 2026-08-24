@@ -185,7 +185,7 @@ PipelineOutput pipeline_transparent(PipelineInput input, sampler2D screen_tex, v
 	output.albedo = to_rgb5(output.albedo);
 	output.albedo = to_linear(output.albedo);
 
-	//output.depth = depth;
+	output.depth = depth;
 	
 	return output;
 }
@@ -201,11 +201,11 @@ PipelineOutput pipeline_opaque(PipelineInput input) {
 	output.albedo = to_rgb5(output.albedo);
 	output.albedo = to_linear(output.albedo);
 	
-	//output.depth = depth;
+	output.depth = depth;
 	
 	return output;
 }
 
 #define APPLY(o)\
 	ALBEDO = o.albedo;\
-	//DEPTH = o.depth;
+	DEPTH = o.depth;
