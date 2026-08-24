@@ -97,7 +97,7 @@ height = 0.2
 script = ExtResource("1_a13yc")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=466187843]
-transform = Transform3D(1, -6.675125e-10, 1.738929e-09, -4.0996254e-10, 0.8318114, 0.55505836, -1.8169694e-09, -0.55505836, 0.8318114, 0, 2.3993711, 2.6616635)
+transform = Transform3D(1, -6.675125e-10, 1.7389288e-09, 2.1668818e-10, 0.9689318, 0.24732806, -1.8499979e-09, -0.24732806, 0.9689318, -0.044722557, 1.473994, 2.57192)
 
 [node name="ColorRect" type="MeshInstance3D" parent="Camera3D" unique_id=1376505868]
 transform = Transform3D(1, -4.099625e-10, -1.8169695e-09, -6.675125e-10, 0.8318114, -0.55505836, 1.738929e-09, 0.55505836, 0.8318114, -0.5008651, -0.42483565, -2.8901086)
@@ -109,7 +109,6 @@ surface_material_override/0 = SubResource("ShaderMaterial_ae2lu")
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=67768925]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13399792, -0.56241053, -0.20848083)
-visible = false
 material_override = ExtResource("2_bkyto")
 instance_shader_parameters/depth_modifier = -0.9999998658891992
 instance_shader_parameters/flat_color = Color(0.5469681, 0.54696786, 0.5469679, 1)
@@ -118,7 +117,7 @@ instance_shader_parameters/shading = 1
 instance_shader_parameters/tex_id = 0
 instance_shader_parameters/texturing = 0
 instance_shader_parameters/use_dither = true
-instance_shader_parameters/use_modulation = true
+instance_shader_parameters/use_modulation = false
 mesh = SubResource("QuadMesh_cn6ar")
 surface_material_override/0 = SubResource("ShaderMaterial_bkyto")
 
@@ -131,16 +130,8 @@ bobbing_dist = 1.0
 
 [node name="Floor2" type="MeshInstance3D" parent="." unique_id=1460344225]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13449192, -2.0505733, -0.20683241)
+visible = false
 material_override = ExtResource("10_v266o")
-instance_shader_parameters/depth_modifier = -0.9999998658891992
-instance_shader_parameters/flat_color = Color(0.973535, 0.9735351, 0.973535, 1)
-instance_shader_parameters/modulate_tint = Color(0.26, 0.26, 0.26, 1)
-instance_shader_parameters/semi_transparency = 0
-instance_shader_parameters/shading = 1
-instance_shader_parameters/tex_id = 0
-instance_shader_parameters/texturing = 0
-instance_shader_parameters/use_dither = true
-instance_shader_parameters/use_modulation = true
 mesh = SubResource("QuadMesh_v266o")
 
 [node name="IdleSpinComponent" type="Node3D" parent="Floor2" unique_id=1669293503]
@@ -161,6 +152,7 @@ surface_material_override/0 = ExtResource("2_bkyto")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1574751594]
 transform = Transform3D(0.8915902, 0, 0.45284316, 0, 1, 0, -0.45284316, 0, 0.8915902, -0.9238361, 0.36397493, 0)
+visible = false
 material_override = ExtResource("1_2gyu8")
 instance_shader_parameters/flat_color = Color(8.471012e-06, 0.988643, 0.7872181, 1)
 instance_shader_parameters/semi_transparency = 1
@@ -190,6 +182,7 @@ bobbing_dist = 1.0
 
 [node name="coffee_bag_03" parent="." unique_id=364752854 instance=ExtResource("6_gmcfr")]
 transform = Transform3D(0.60621774, 0, -0.35, 0, 0.7, 0, 0.35, 0, 0.60621774, 0.6534946, 0.49867558, 0.4295969)
+visible = false
 
 [node name="Cube" parent="coffee_bag_03" index="0" unique_id=691518568]
 transform = Transform3D(-0.6422549, 0, -0.76649153, 0, 1.0000001, 0, 0.76649153, 0, -0.6422549, 0, 0, 0)
@@ -214,15 +207,12 @@ sky_mode = 1
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=201704999]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36555982, 1.2702054, 0.6620568)
+visible = false
 light_energy = 5.0
 omni_range = 2.106
 script = ExtResource("9_ma032")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="OmniLight3D" unique_id=155783933]
-instance_shader_parameters/flat_color = Color(0.89320505, 0.39662808, 3.85046e-07, 1)
-instance_shader_parameters/modulate_tint = Color(0.96053237, 0.5699593, 0, 1)
-instance_shader_parameters/semi_transparency = 2
-instance_shader_parameters/texturing = 1
 mesh = SubResource("SphereMesh_af0gu")
 
 [editable path="coffee_bag_03"]

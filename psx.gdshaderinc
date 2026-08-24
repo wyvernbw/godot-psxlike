@@ -1,4 +1,4 @@
-render_mode vertex_lighting;
+render_mode vertex_lighting, unshaded;
 // Converts a color from linear light gamma to sRGB gamma
 vec3 from_linear(vec3 linearRGB)
 {
@@ -100,7 +100,7 @@ void vertex() {
 
 	clip_pos = vertex;
 	
-	UV = UV * vertex.w; 
+	//UV = UV * vertex.w; 
 	
 	if (shading == SHADING_FLAT) {
 		COLOR = flat_color;
@@ -175,7 +175,8 @@ struct PipelineInput {
 };
 
 PipelineOutput pipeline_transparent(PipelineInput input, sampler2D screen_tex, vec2 screen_uv) {
-	vec2 uv = input.uv / clip_pos.w;
+	//vec2 uv = input.uv / clip_pos.w;
+	vec2 uv = input.uv;
 	float fog = fog_factor / clip_pos.w;
 	PipelineOutput output;
 	output.albedo = get_albedo(input.vert_color, textures[tex_id], uv);
@@ -191,7 +192,8 @@ PipelineOutput pipeline_transparent(PipelineInput input, sampler2D screen_tex, v
 }
 
 PipelineOutput pipeline_opaque(PipelineInput input) {
-	vec2 uv = input.uv / clip_pos.w;
+	//vec2 uv = input.uv / clip_pos.w;
+	vec2 uv = input.uv;
 	float fog = clip_pos.w;
 	PipelineOutput output;
 	output.albedo = get_albedo(input.vert_color, textures[tex_id], uv);

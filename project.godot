@@ -54,5 +54,5 @@ fog_color={
 }
 fog_enabled={
 "type": "bool",
-"value": true
+"value": false
 }
