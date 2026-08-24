@@ -18,12 +18,20 @@ config/name="gdpsx-renderer"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PsxLightSystem="*uid://7ncky5lyffo"
+
 [display]
 
 window/size/viewport_width=320
 window/size/viewport_height=240
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
+
+[global_group]
+
+psx_light=""
 
 [input]
 
@@ -55,4 +63,16 @@ fog_color={
 fog_enabled={
 "type": "bool",
 "value": false
+}
+lights={
+"type": "sampler2D",
+"value": ""
+}
+ambient_light={
+"type": "color",
+"value": Color(0, 0, 0, 1)
+}
+light_count={
+"type": "int",
+"value": 0
 }

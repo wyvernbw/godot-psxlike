@@ -77,12 +77,50 @@ global uniform float fog_far_plane: hint_range(0.0, 10.0, 0.1);
 global uniform float fog_near_plane: hint_range(0.0, 10.0, 0.1);
 global uniform vec4 fog_color: source_color;
 global uniform bool fog_enabled = false;
+global uniform sampler2D lights;
+global uniform vec4 ambient_light: source_color;
+global uniform int light_count;
 
 varying float fog_factor;
 
 vec3 get_fog(vec3 base, float fog) {
 	if (!fog_enabled) return base;
 	return mix(fog_color.rgb, base, clamp(fog, 0.0, 1.0));
+}
+
+vec3 psx_light(vec3 world_vert, vec3 normal) {
+	if (shading != SHADING_GORAUD) return vec3(0.0);
+	
+	const int LIGHT_DIRECTIONAL = 0;
+	const int LIGHT_POINT = 1;
+	
+	vec3 light = ambient_light.rgb;
+	int buffer_len = textureSize(lights, 0).x;
+	int stride = 3;
+	for (int i = 0; i < light_count; i += 1) {
+		int cursor = i*stride;
+		vec3 meta = texelFetch(lights, ivec2(cursor, 0), 0).rgb;
+		int type = int(meta.r);
+		int visible = int(meta.g);
+		if (visible == 0) continue;
+		vec3 data = texelFetch(lights, ivec2(cursor+1, 0), 0).rgb;
+		vec3 color = texelFetch(lights, ivec2(cursor+2, 0), 0).rgb;
+		switch (type) {
+			case LIGHT_DIRECTIONAL: {
+				vec3 dir = data;
+				light += clamp(dot(dir, normal), 0.0, 1.0) * color;
+				break;
+			}
+			case LIGHT_POINT: {
+				vec3 pos = data;
+				float range = meta.b;
+				float dist = distance(world_vert, pos);
+				light += mix(color, vec3(0.0), clamp(dist / range, 0.0, 1.0));
+				break;
+			}
+		};
+	}
+	return light;
 }
 
 void vertex() {
@@ -92,12 +130,11 @@ void vertex() {
 	
 	vertex.xy = round(clip.xy / clip.w * VIEWPORT_SIZE.xy) / VIEWPORT_SIZE.xy * clip.w;
 	POSITION = vertex;
-	
     NORMAL = normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz);
     BINORMAL = normalize((MODELVIEW_MATRIX * vec4(BINORMAL, 0.0)).xyz);
     TANGENT = normalize((MODELVIEW_MATRIX * vec4(TANGENT, 0.0)).xyz);
-
 	clip_pos = vertex;
+	COLOR.rgb = psx_light(world_space.xyz, NORMAL);
 	
 	UV = UV * vertex.w; 
 	
