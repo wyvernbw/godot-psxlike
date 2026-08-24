@@ -58,7 +58,7 @@ vec3 dither(vec3 color, vec2 fragcoord) {
     	 3, -1,  2, -2
 	);
 
-	if (use_dither && shading == SHADING_GORAUD) {
+	if (use_dither && (shading == SHADING_GORAUD || use_modulation)) {
 		ivec2 coord = ivec2(fragcoord) % ivec2(4);
 		int value = DITHER[coord.y*4 + coord.x];
 		float valuef = float(value);
