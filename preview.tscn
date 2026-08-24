@@ -120,7 +120,6 @@ mesh = SubResource("QuadMesh_cn6ar")
 surface_material_override/0 = SubResource("ShaderMaterial_bkyto")
 
 [node name="IdleSpinComponent" type="Node3D" parent="Floor" unique_id=558420481]
-visible = false
 script = ExtResource("6_s6vga")
 spin_speed = 0.2
 bobbing = false
@@ -168,7 +167,6 @@ instance_shader_parameters/use_modulation = false
 mesh = SubResource("BoxMesh_af0gu")
 
 [node name="IdleSpinComponent" type="Node3D" parent="MeshInstance3D" unique_id=337326955]
-visible = false
 script = ExtResource("6_s6vga")
 spin_speed = 0.8
 bobbing_dist = 1.0
@@ -189,7 +187,7 @@ spin_speed = 0.8
 bobbing_dist = 1.0
 
 [node name="coffee_bag_03" parent="." unique_id=364752854 instance=ExtResource("6_gmcfr")]
-transform = Transform3D(0.60621774, 0, -0.35, 0, 0.7, 0, 0.35, 0, 0.60621774, 0.6534946, 0.49867558, 0.9326172)
+transform = Transform3D(0.60621774, 0, -0.35, 0, 0.7, 0, 0.35, 0, 0.60621774, 0.6534946, 0.25103235, 0.54861903)
 
 [node name="Cube" parent="coffee_bag_03" index="0" unique_id=691518568]
 transform = Transform3D(-0.64225495, 0, -0.76649165, 0, 1.0000001, 0, 0.76649165, 0, -0.64225495, 0, 0, 0)
@@ -202,7 +200,6 @@ instance_shader_parameters/use_dither = false
 instance_shader_parameters/use_modulation = true
 
 [node name="IdleSpinComponent" type="Node3D" parent="coffee_bag_03" unique_id=1521256746]
-visible = false
 script = ExtResource("6_s6vga")
 spin_speed = -0.8
 bobbing_dist = 1.0

@@ -1,4 +1,4 @@
-render_mode vertex_lighting, unshaded;
+render_mode vertex_lighting, unshaded, skip_vertex_transform;
 // Converts a color from linear light gamma to sRGB gamma
 vec3 from_linear(vec3 linearRGB)
 {
@@ -90,9 +90,7 @@ void vertex() {
 	vec4 clip = PROJECTION_MATRIX * VIEW_MATRIX * world_space;
 	vec4 vertex = clip;
 	
-	vertex.xy = floor(clip.xy / clip.w * VIEWPORT_SIZE.xy) / VIEWPORT_SIZE.xy * clip.w;
-	
-	VERTEX.xy = vertex.xy;
+	vertex.xy = round(clip.xy / clip.w * VIEWPORT_SIZE.xy) / VIEWPORT_SIZE.xy * clip.w;
 	POSITION = vertex;
 	
     NORMAL = normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz);
