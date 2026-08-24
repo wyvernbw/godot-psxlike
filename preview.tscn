@@ -1,0 +1,228 @@
+[gd_scene format=3 uid="uid://2fs530fet0v7"]
+
+[ext_resource type="Material" uid="uid://c60s617ur1wny" path="res://psx_transparent.material" id="1_2gyu8"]
+[ext_resource type="Script" uid="uid://d85rwsws0fgt" path="res://preview.gd" id="1_a13yc"]
+[ext_resource type="Shader" uid="uid://c2eyo3sgddeoh" path="res://psx_transparent.gdshader" id="2_6urkv"]
+[ext_resource type="Material" uid="uid://dbvcmciu8mkp7" path="res://psx_opaque.material" id="2_bkyto"]
+[ext_resource type="Texture2D" uid="uid://bmmoyscwr0r3r" path="res://icon.svg" id="3_gmcfr"]
+[ext_resource type="Texture2D" uid="uid://bn5pralky5ey1" path="res://checkerboard.png" id="4_s6vga"]
+[ext_resource type="PackedScene" uid="uid://5hkc67x43kfi" path="res://coffee_bag_03.blend" id="6_gmcfr"]
+[ext_resource type="Script" uid="uid://dy7ii1efa41mv" path="res://idle_spin_component.gd" id="6_s6vga"]
+[ext_resource type="Script" uid="uid://derlprmv22b10" path="res://moving_light.gd" id="9_ma032"]
+[ext_resource type="Material" uid="uid://d16bo6aricylh" path="res://psx_transparent_unshaded.material" id="10_v266o"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_af0gu"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="Shader" id="Shader_5g6qc"]
+code = "shader_type spatial;
+// Prevent the quad from being affected by lighting and fog. This also improves performance.
+render_mode unshaded, fog_disabled;
+
+uniform sampler2D depth_texture : hint_depth_texture, repeat_disable;
+
+void vertex() {
+  POSITION = vec4(VERTEX.xy, 1.0, 1.0);
+}
+
+void fragment() {
+  float depth = texture(depth_texture, SCREEN_UV).x;
+  vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth);
+  vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+  view.xyz /= view.w;
+  float linear_depth = -view.z;
+    float preview_scale = linear_depth / 10.0; 
+    
+    ALBEDO = vec3(clamp(preview_scale, 0.0, 1.0));
+
+
+  vec4 world = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+  vec3 world_position = world.xyz / world.w;
+
+  // Visualize linear depth
+  //ALBEDO.rgb = vec3(fract(linear_depth));
+
+  // Visualize world coordinates
+  //ALBEDO.rgb = fract(world_position).xyz;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ae2lu"]
+render_priority = 0
+shader = SubResource("Shader_5g6qc")
+
+[sub_resource type="QuadMesh" id="QuadMesh_cn6ar"]
+lightmap_size_hint = Vector2i(27, 27)
+size = Vector2(5, 5)
+subdivide_width = 2
+subdivide_depth = 4
+orientation = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bkyto"]
+render_priority = 0
+shader = ExtResource("2_6urkv")
+shader_parameter/textures = [ExtResource("3_gmcfr"), ExtResource("4_s6vga")]
+
+[sub_resource type="QuadMesh" id="QuadMesh_v266o"]
+lightmap_size_hint = Vector2i(152, 302)
+add_uv2 = true
+size = Vector2(30, 60)
+subdivide_width = 5
+subdivide_depth = 5
+orientation = 1
+
+[sub_resource type="Environment" id="Environment_2gyu8"]
+background_mode = 1
+background_color = Color(0.814606, 0.7501643, 0.90919167, 1)
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ala5m"]
+radial_segments = 6
+rings = 6
+
+[sub_resource type="BoxMesh" id="BoxMesh_af0gu"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_bkyto"]
+inner_radius = 0.32
+outer_radius = 0.833
+rings = 8
+ring_segments = 5
+
+[sub_resource type="SphereMesh" id="SphereMesh_af0gu"]
+material = ExtResource("10_v266o")
+radius = 0.1
+height = 0.2
+
+[node name="Preview" type="Node3D" unique_id=35982589]
+script = ExtResource("1_a13yc")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=466187843]
+transform = Transform3D(1, -6.675125e-10, 1.738929e-09, -4.0996254e-10, 0.8318114, 0.55505836, -1.8169694e-09, -0.55505836, 0.8318114, 0, 2.3993711, 2.6616635)
+
+[node name="ColorRect" type="MeshInstance3D" parent="Camera3D" unique_id=1376505868]
+transform = Transform3D(1, -4.099625e-10, -1.8169695e-09, -6.675125e-10, 0.8318114, -0.55505836, 1.738929e-09, 0.55505836, 0.8318114, -0.5008651, -0.42483565, -2.8901086)
+visible = false
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_af0gu")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_ae2lu")
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=67768925]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13399792, -0.56241053, -0.20848083)
+visible = false
+material_override = ExtResource("2_bkyto")
+instance_shader_parameters/depth_modifier = -0.9999998658891992
+instance_shader_parameters/flat_color = Color(0.5469681, 0.54696786, 0.5469679, 1)
+instance_shader_parameters/modulate_tint = Color(0.22130159, 0.22130162, 0.22130153, 1)
+instance_shader_parameters/shading = 1
+instance_shader_parameters/tex_id = 0
+instance_shader_parameters/texturing = 0
+instance_shader_parameters/use_dither = true
+instance_shader_parameters/use_modulation = true
+mesh = SubResource("QuadMesh_cn6ar")
+surface_material_override/0 = SubResource("ShaderMaterial_bkyto")
+
+[node name="IdleSpinComponent" type="Node3D" parent="Floor" unique_id=558420481]
+visible = false
+script = ExtResource("6_s6vga")
+spin_speed = 0.2
+bobbing = false
+bobbing_dist = 1.0
+
+[node name="Floor2" type="MeshInstance3D" parent="." unique_id=1460344225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13449192, -2.0505733, -0.20683241)
+material_override = ExtResource("10_v266o")
+instance_shader_parameters/depth_modifier = -0.9999998658891992
+instance_shader_parameters/flat_color = Color(0.973535, 0.9735351, 0.973535, 1)
+instance_shader_parameters/modulate_tint = Color(0.26, 0.26, 0.26, 1)
+instance_shader_parameters/semi_transparency = 0
+instance_shader_parameters/shading = 1
+instance_shader_parameters/tex_id = 0
+instance_shader_parameters/texturing = 0
+instance_shader_parameters/use_dither = true
+instance_shader_parameters/use_modulation = true
+mesh = SubResource("QuadMesh_v266o")
+
+[node name="IdleSpinComponent" type="Node3D" parent="Floor2" unique_id=1669293503]
+visible = false
+script = ExtResource("6_s6vga")
+spin_speed = 0.2
+bobbing = false
+bobbing_dist = 1.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=508563420]
+environment = SubResource("Environment_2gyu8")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1645077074]
+transform = Transform3D(0.98351026, 0, -0.18085298, 0, 1, 0, 0.18085298, 0, 0.98351026, 0, 0.8245065, 0)
+instance_shader_parameters/tex_id = 1
+mesh = SubResource("SphereMesh_ala5m")
+surface_material_override/0 = ExtResource("2_bkyto")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1574751594]
+transform = Transform3D(0.8915902, 0, 0.45284316, 0, 1, 0, -0.45284316, 0, 0.8915902, -0.9238361, 0.36397493, 0)
+material_override = ExtResource("1_2gyu8")
+instance_shader_parameters/flat_color = Color(8.471012e-06, 0.988643, 0.7872181, 1)
+instance_shader_parameters/semi_transparency = 1
+instance_shader_parameters/texturing = 1
+instance_shader_parameters/use_dither = false
+mesh = SubResource("BoxMesh_af0gu")
+
+[node name="IdleSpinComponent" type="Node3D" parent="MeshInstance3D" unique_id=337326955]
+script = ExtResource("6_s6vga")
+spin_speed = 0.8
+bobbing_dist = 1.0
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1254338161]
+transform = Transform3D(0.8915902, 0, 0.45284316, 0, 1, 0, -0.45284316, 0, 0.8915902, -0.013975978, 1.6701704, 0.493073)
+visible = false
+material_override = ExtResource("1_2gyu8")
+instance_shader_parameters/flat_color = Color(0, 0.84, 0.42, 1)
+instance_shader_parameters/semi_transparency = 3
+instance_shader_parameters/texturing = 1
+instance_shader_parameters/use_dither = false
+mesh = SubResource("TorusMesh_bkyto")
+
+[node name="IdleSpinComponent" type="Node3D" parent="MeshInstance3D3" unique_id=982167433]
+script = ExtResource("6_s6vga")
+spin_speed = 0.8
+bobbing_dist = 1.0
+
+[node name="coffee_bag_03" parent="." unique_id=364752854 instance=ExtResource("6_gmcfr")]
+transform = Transform3D(0.60621774, 0, -0.35, 0, 0.7, 0, 0.35, 0, 0.60621774, 0.6534946, 0.49867558, 0.4295969)
+
+[node name="Cube" parent="coffee_bag_03" index="0" unique_id=691518568]
+transform = Transform3D(-0.6422549, 0, -0.76649153, 0, 1.0000001, 0, 0.76649153, 0, -0.6422549, 0, 0, 0)
+material_override = ExtResource("2_bkyto")
+instance_shader_parameters/flat_color = Color(0.49803922, 0.49803922, 0.49803922, 1)
+instance_shader_parameters/shading = 1
+instance_shader_parameters/tex_id = 2
+instance_shader_parameters/texturing = 0
+instance_shader_parameters/use_dither = false
+instance_shader_parameters/use_modulation = true
+
+[node name="IdleSpinComponent" type="Node3D" parent="coffee_bag_03" unique_id=1521256746]
+script = ExtResource("6_s6vga")
+spin_speed = -0.8
+bobbing_dist = 1.0
+bobbing_phase = 3.142
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1979717547]
+transform = Transform3D(0.26095316, 0.35144603, -0.8991046, 0.006399914, 0.93072516, 0.36566344, 0.96533024, -0.101175226, 0.24062644, -2.4018707, 1.533232, 1.5459497)
+visible = false
+sky_mode = 1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=201704999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36555982, 1.2702054, 0.6620568)
+light_energy = 5.0
+omni_range = 2.106
+script = ExtResource("9_ma032")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="OmniLight3D" unique_id=155783933]
+instance_shader_parameters/flat_color = Color(0.89320505, 0.39662808, 3.85046e-07, 1)
+instance_shader_parameters/modulate_tint = Color(0.96053237, 0.5699593, 0, 1)
+instance_shader_parameters/semi_transparency = 2
+instance_shader_parameters/texturing = 1
+mesh = SubResource("SphereMesh_af0gu")
+
+[editable path="coffee_bag_03"]
