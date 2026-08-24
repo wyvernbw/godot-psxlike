@@ -162,7 +162,7 @@ surface_material_override/0 = ExtResource("2_bkyto")
 transform = Transform3D(0.8915902, 0, 0.45284316, 0, 1, 0, -0.45284316, 0, 0.8915902, -0.8018251, 0.36397493, 0)
 material_override = ExtResource("1_2gyu8")
 instance_shader_parameters/flat_color = Color(8.471012e-06, 0.988643, 0.7872181, 1)
-instance_shader_parameters/semi_transparency = 0
+instance_shader_parameters/semi_transparency = 1
 instance_shader_parameters/texturing = 1
 instance_shader_parameters/use_dither = false
 instance_shader_parameters/use_modulation = false
@@ -172,10 +172,10 @@ mesh = SubResource("BoxMesh_af0gu")
 script = ExtResource("6_s6vga")
 spin_speed = 0.8
 bobbing_dist = 1.0
+bobbing_phase = 3.142
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1254338161]
 transform = Transform3D(0.8915902, 0, 0.45284316, 0, 1, 0, -0.45284316, 0, 0.8915902, -0.013975978, 1.6701704, 0.493073)
-visible = false
 material_override = ExtResource("1_2gyu8")
 instance_shader_parameters/flat_color = Color(0, 0.84, 0.42, 1)
 instance_shader_parameters/semi_transparency = 3
@@ -209,12 +209,10 @@ bobbing_phase = 3.142
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1979717547]
 transform = Transform3D(0.26095316, 0.35144603, -0.8991046, 0.006399914, 0.93072516, 0.36566344, 0.96533024, -0.101175226, 0.24062644, -2.4018707, 1.533232, 1.5459497)
-visible = false
 sky_mode = 1
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=201704999]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36555982, 1.2702054, 0.6620568)
-visible = false
 light_energy = 5.0
 omni_range = 2.106
 script = ExtResource("9_ma032")
