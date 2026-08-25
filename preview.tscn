@@ -54,8 +54,8 @@ shader = SubResource("Shader_5g6qc")
 [sub_resource type="QuadMesh" id="QuadMesh_cn6ar"]
 lightmap_size_hint = Vector2i(27, 27)
 size = Vector2(5, 5)
-subdivide_width = 1
-subdivide_depth = 1
+subdivide_width = 3
+subdivide_depth = 3
 orientation = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bkyto"]
@@ -229,6 +229,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36555982, 0.26105726, 0.662
 light_color = Color(1, 0.8370035, 0.8345902, 1)
 omni_range = 2.106
 script = ExtResource("9_ma032")
+enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="OmniLight3D" unique_id=155783933]
 instance_shader_parameters/flat_color = Color(0.89320505, 0.39662808, 3.85046e-07, 1)

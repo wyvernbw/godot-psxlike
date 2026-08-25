@@ -21,16 +21,16 @@ func take_screenshot() -> void:
 		push_error("Failed to save screenshot: %s" % error)
 		
 
-func record_gif() -> void:
+const DURATION := 60 * 4
+
+func record_gif(duration := DURATION) -> void:
 	var timestamp := Time.get_datetime_string_from_system().replace(":", "-")
 	var base_path = "user://gif_%s" % timestamp
 	if DirAccess.make_dir_recursive_absolute(base_path) != OK:
 		push_error("Failed to create gif folder")
 		return
 
-	const DURATION := 60 * 4
-
-	for frame_i in DURATION: # one second
+	for frame_i in duration: # one second
 		var image: Image = get_viewport().get_texture().get_image()
 		var filename := "frame_%s.png" % frame_i
 		var save_path = base_path + "/" + filename

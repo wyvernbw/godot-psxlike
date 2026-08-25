@@ -134,7 +134,8 @@ void vertex() {
     BINORMAL = normalize((MODELVIEW_MATRIX * vec4(BINORMAL, 0.0)).xyz);
     TANGENT = normalize((MODELVIEW_MATRIX * vec4(TANGENT, 0.0)).xyz);
 	clip_pos = vertex;
-	COLOR.rgb = psx_light(world_space.xyz, NORMAL);
+	
+	COLOR.rgb *= psx_light(world_space.xyz, NORMAL);
 	
 	UV = UV * vertex.w; 
 	

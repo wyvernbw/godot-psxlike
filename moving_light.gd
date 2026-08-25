@@ -5,7 +5,7 @@ extends OmniLight3D
 
 func _ready() -> void:
 	if enabled:
-		owner.record_gif()
+		owner.record_gif(240*2)
 
 var t := 0.0
 func _process(dt: float) -> void:
