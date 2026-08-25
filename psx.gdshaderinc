@@ -21,7 +21,7 @@ vec3 to_linear(vec3 sRGB)
 
 vec3 to_rgb5(vec3 color) {
 	color.rgb *= 31.;
-	color.rgb = floor(color.rgb);
+	color.rgb = round(color.rgb);
 	color.rgb /= 31.;
 	return color;
 }
@@ -77,15 +77,20 @@ global uniform float fog_far_plane: hint_range(0.0, 10.0, 0.1);
 global uniform float fog_near_plane: hint_range(0.0, 10.0, 0.1);
 global uniform vec4 fog_color: source_color;
 global uniform bool fog_enabled = false;
+global uniform int fog_kind;
+const int FOG_MODULATION = 0;
+const int FOG_SH = 1;
+instance uniform bool fog_opt_out = false;
+varying float fog_factor;
 global uniform sampler2D lights;
 global uniform vec4 ambient_light: source_color;
 global uniform int light_count;
 
-varying float fog_factor;
-
-vec3 get_fog(vec3 base, float fog) {
-	if (!fog_enabled) return base;
-	return mix(fog_color.rgb, base, clamp(fog, 0.0, 1.0));
+vec3 get_fog_color(vec3 base, float fog) {
+	if (!fog_enabled || fog_opt_out) return base;
+	fog = clamp(fog, 0.0, 1.0);
+	float t = floor(fog * float(0x1000)) / float(0x1000); 
+	return mix(base, fog_color.rgb, t);
 }
 
 vec3 psx_light(vec3 world_vert, vec3 normal) {
@@ -146,12 +151,16 @@ void vertex() {
 	
 	depth = clip.z / clip.w + depth_modifier / 100.;
 		
-	if (fog_enabled) {
-		float view_dist = length(CAMERA_POSITION_WORLD - world_space.xyz);
-		fog_factor = (view_dist - fog_near_plane) / (fog_far_plane - fog_near_plane);
-		fog_factor = 1.0 - clamp(fog_factor, 0.0, 1.0);
-		fog_factor *= clip_pos.w;
+	if (fog_enabled && !fog_opt_out) {
+		float view_dist = distance(CAMERA_POSITION_WORLD, world_space.xyz);
+		fog_factor = view_dist / (fog_far_plane - fog_near_plane);
+		if (fog_kind == FOG_MODULATION) {
+			COLOR.rgb = get_fog_color(COLOR.rgb, fog_factor);
+		} else {
+			fog_factor *= clip.w;
+		}
 	}
+	
 }
 
 vec3 get_albedo(vec4 vert_color, sampler2D tex, vec2 uv) {
@@ -213,11 +222,11 @@ struct PipelineInput {
 
 PipelineOutput pipeline_transparent(PipelineInput input, sampler2D screen_tex, vec2 screen_uv) {
 	vec2 uv = input.uv / clip_pos.w;
-	//vec2 uv = input.uv;
-	float fog = fog_factor / clip_pos.w;
 	PipelineOutput output;
 	output.albedo = get_albedo(input.vert_color, textures[tex_id], uv);
-	output.albedo = get_fog(output.albedo, fog);
+	if (fog_kind == FOG_SH) {
+		output.albedo = get_fog_color(output.albedo, fog_factor);
+	}
 	output.albedo = apply_semi_transparency(output.albedo, screen_tex, screen_uv);
 	output.albedo = dither(output.albedo, input.fragcoord.xy);
 	output.albedo = to_rgb5(output.albedo);
@@ -230,11 +239,11 @@ PipelineOutput pipeline_transparent(PipelineInput input, sampler2D screen_tex, v
 
 PipelineOutput pipeline_opaque(PipelineInput input) {
 	vec2 uv = input.uv / clip_pos.w;
-	//vec2 uv = input.uv;
-	float fog = clip_pos.w;
 	PipelineOutput output;
 	output.albedo = get_albedo(input.vert_color, textures[tex_id], uv);
-	output.albedo = get_fog(output.albedo, fog);
+	if (fog_kind == FOG_SH) {
+		output.albedo = get_fog_color(output.albedo, fog_factor / clip_pos.w);
+	}
 	output.albedo = dither(output.albedo, input.fragcoord.xy);
 	output.albedo = to_rgb5(output.albedo);
 	output.albedo = to_linear(output.albedo);

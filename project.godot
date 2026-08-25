@@ -50,19 +50,19 @@ shading/overrides/force_lambert_over_burley=true
 
 fog_far_plane={
 "type": "float",
-"value": 17.96
+"value": 6.62
 }
 fog_near_plane={
 "type": "float",
-"value": 4.22
+"value": 0.19
 }
 fog_color={
 "type": "color",
-"value": Color(0.8117647, 0.7490196, 0.90588236, 1)
+"value": Color(0.80363095, 0.7451514, 0.9093294, 1)
 }
 fog_enabled={
 "type": "bool",
-"value": false
+"value": true
 }
 lights={
 "type": "sampler2D",
@@ -70,9 +70,13 @@ lights={
 }
 ambient_light={
 "type": "color",
-"value": Color(0, 0, 0, 1)
+"value": Color(1, 1, 1, 1)
 }
 light_count={
 "type": "int",
 "value": 0
+}
+fog_kind={
+"type": "int",
+"value": 1
 }
