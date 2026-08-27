@@ -50,11 +50,11 @@ shading/overrides/force_lambert_over_burley=true
 
 fog_far_plane={
 "type": "float",
-"value": 6.62
+"value": 9.33
 }
 fog_near_plane={
 "type": "float",
-"value": 0.19
+"value": 1.42
 }
 fog_color={
 "type": "color",
@@ -70,7 +70,7 @@ lights={
 }
 ambient_light={
 "type": "color",
-"value": Color(1, 1, 1, 1)
+"value": Color(0.08070483, 0.044073038, 0.122633405, 1)
 }
 light_count={
 "type": "int",

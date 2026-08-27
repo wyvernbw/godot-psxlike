@@ -255,4 +255,5 @@ PipelineOutput pipeline_opaque(PipelineInput input) {
 
 #define APPLY(o)\
 	ALBEDO = o.albedo;\
-	DEPTH = o.depth;
+	DEPTH = o.depth;\
+	if (o.albedo == vec3(0.0)) discard;

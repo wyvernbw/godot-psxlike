@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://2fs530fet0v7"]
 
-[ext_resource type="Material" uid="uid://c60s617ur1wny" path="res://psx_transparent.material" id="1_2gyu8"]
+[ext_resource type="Material" uid="uid://c60s617ur1wny" path="res://final/psx_transparent.material" id="1_2gyu8"]
 [ext_resource type="Script" uid="uid://d85rwsws0fgt" path="res://preview.gd" id="1_a13yc"]
-[ext_resource type="Shader" uid="uid://c2eyo3sgddeoh" path="res://psx_transparent.gdshader" id="2_6urkv"]
-[ext_resource type="Material" uid="uid://dbvcmciu8mkp7" path="res://psx_opaque.material" id="2_bkyto"]
+[ext_resource type="Shader" uid="uid://c2eyo3sgddeoh" path="res://final/psx_transparent.gdshader" id="2_6urkv"]
+[ext_resource type="Material" uid="uid://dbvcmciu8mkp7" path="res://final/psx_opaque.material" id="2_bkyto"]
 [ext_resource type="Texture2D" uid="uid://bmmoyscwr0r3r" path="res://icon.svg" id="3_gmcfr"]
 [ext_resource type="Texture2D" uid="uid://bn5pralky5ey1" path="res://checkerboard.png" id="4_s6vga"]
 [ext_resource type="PackedScene" uid="uid://5hkc67x43kfi" path="res://coffee_bag_03.blend" id="6_gmcfr"]
@@ -53,9 +53,9 @@ shader = SubResource("Shader_5g6qc")
 
 [sub_resource type="QuadMesh" id="QuadMesh_cn6ar"]
 lightmap_size_hint = Vector2i(27, 27)
-size = Vector2(100, 100)
-subdivide_width = 40
-subdivide_depth = 40
+size = Vector2(6, 6)
+subdivide_width = 2
+subdivide_depth = 2
 orientation = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bkyto"]
@@ -132,15 +132,6 @@ bobbing_dist = 1.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13449192, -2.0505733, -0.20683241)
 visible = false
 material_override = ExtResource("10_v266o")
-instance_shader_parameters/depth_modifier = -0.9999998658891992
-instance_shader_parameters/flat_color = Color(0.973535, 0.9735351, 0.973535, 1)
-instance_shader_parameters/modulate_tint = Color(0.26, 0.26, 0.26, 1)
-instance_shader_parameters/semi_transparency = 0
-instance_shader_parameters/shading = 1
-instance_shader_parameters/tex_id = 0
-instance_shader_parameters/texturing = 0
-instance_shader_parameters/use_dither = true
-instance_shader_parameters/use_modulation = true
 mesh = SubResource("QuadMesh_v266o")
 
 [node name="IdleSpinComponent" type="Node3D" parent="Floor2" unique_id=1669293503]
@@ -227,15 +218,12 @@ sky_mode = 1
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=201704999 groups=["psx_light"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36555982, 0.26105726, 0.6620568)
+visible = false
 light_color = Color(1, 0.8370035, 0.8345902, 1)
 omni_range = 2.106
 script = ExtResource("9_ma032")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="OmniLight3D" unique_id=155783933]
-instance_shader_parameters/flat_color = Color(0.89320505, 0.39662808, 3.85046e-07, 1)
-instance_shader_parameters/modulate_tint = Color(0.96053237, 0.5699593, 0, 1)
-instance_shader_parameters/semi_transparency = 2
-instance_shader_parameters/texturing = 1
 mesh = SubResource("SphereMesh_af0gu")
 
 [node name="d0bfe8" type="Node" parent="." unique_id=881398644]
