@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://btpela7fyfaxn"
-path.s3tc="res://.godot/imported/sprout_huila.png-391cd8739d42b95118384c1dd2d7b087.s3tc.ctex"
+path.s3tc="res://.godot/imported/sprout_huila.png-7eba84e7d5b1dba02636bb84c30062c7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://sprout_huila.png"
-dest_files=["res://.godot/imported/sprout_huila.png-391cd8739d42b95118384c1dd2d7b087.s3tc.ctex"]
+source_file="res://textures/sprout_huila.png"
+dest_files=["res://.godot/imported/sprout_huila.png-7eba84e7d5b1dba02636bb84c30062c7.s3tc.ctex"]
 
 [params]
 

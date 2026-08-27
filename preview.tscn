@@ -2,14 +2,10 @@
 
 [ext_resource type="Material" uid="uid://c60s617ur1wny" path="res://final/psx_transparent.material" id="1_2gyu8"]
 [ext_resource type="Script" uid="uid://d85rwsws0fgt" path="res://preview.gd" id="1_a13yc"]
-[ext_resource type="Shader" uid="uid://c2eyo3sgddeoh" path="res://final/psx_transparent.gdshader" id="2_6urkv"]
 [ext_resource type="Material" uid="uid://dbvcmciu8mkp7" path="res://final/psx_opaque.material" id="2_bkyto"]
-[ext_resource type="Texture2D" uid="uid://bmmoyscwr0r3r" path="res://icon.svg" id="3_gmcfr"]
-[ext_resource type="Texture2D" uid="uid://bn5pralky5ey1" path="res://checkerboard.png" id="4_s6vga"]
 [ext_resource type="PackedScene" uid="uid://5hkc67x43kfi" path="res://coffee_bag_03.blend" id="6_gmcfr"]
 [ext_resource type="Script" uid="uid://dy7ii1efa41mv" path="res://idle_spin_component.gd" id="6_s6vga"]
 [ext_resource type="Script" uid="uid://derlprmv22b10" path="res://moving_light.gd" id="9_ma032"]
-[ext_resource type="Material" uid="uid://d16bo6aricylh" path="res://psx_transparent_unshaded.material" id="10_v266o"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_af0gu"]
 flip_faces = true
@@ -58,19 +54,6 @@ subdivide_width = 2
 subdivide_depth = 2
 orientation = 1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bkyto"]
-render_priority = 0
-shader = ExtResource("2_6urkv")
-shader_parameter/textures = [ExtResource("3_gmcfr"), ExtResource("4_s6vga")]
-
-[sub_resource type="QuadMesh" id="QuadMesh_v266o"]
-lightmap_size_hint = Vector2i(152, 302)
-add_uv2 = true
-size = Vector2(30, 60)
-subdivide_width = 5
-subdivide_depth = 5
-orientation = 1
-
 [sub_resource type="Environment" id="Environment_2gyu8"]
 background_mode = 1
 background_color = Color(0.8039216, 0.74509805, 0.9098039, 1)
@@ -89,7 +72,6 @@ rings = 8
 ring_segments = 5
 
 [sub_resource type="SphereMesh" id="SphereMesh_af0gu"]
-material = ExtResource("10_v266o")
 radius = 0.1
 height = 0.2
 
@@ -120,22 +102,9 @@ instance_shader_parameters/texturing = 0
 instance_shader_parameters/use_dither = true
 instance_shader_parameters/use_modulation = true
 mesh = SubResource("QuadMesh_cn6ar")
-surface_material_override/0 = SubResource("ShaderMaterial_bkyto")
+surface_material_override/0 = ExtResource("2_bkyto")
 
 [node name="IdleSpinComponent" type="Node3D" parent="Floor" unique_id=558420481]
-script = ExtResource("6_s6vga")
-spin_speed = 0.2
-bobbing = false
-bobbing_dist = 1.0
-
-[node name="Floor2" type="MeshInstance3D" parent="." unique_id=1460344225]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13449192, -2.0505733, -0.20683241)
-visible = false
-material_override = ExtResource("10_v266o")
-mesh = SubResource("QuadMesh_v266o")
-
-[node name="IdleSpinComponent" type="Node3D" parent="Floor2" unique_id=1669293503]
-visible = false
 script = ExtResource("6_s6vga")
 spin_speed = 0.2
 bobbing = false
@@ -182,7 +151,8 @@ transform = Transform3D(0.8915902, 0, 0.45284316, 0, 1, 0, -0.45284316, 0, 0.891
 visible = false
 material_override = ExtResource("1_2gyu8")
 instance_shader_parameters/flat_color = Color(0, 0.84, 0.42, 1)
-instance_shader_parameters/semi_transparency = 3
+instance_shader_parameters/fog_opt_out = true
+instance_shader_parameters/semi_transparency = 1
 instance_shader_parameters/texturing = 1
 instance_shader_parameters/use_dither = false
 mesh = SubResource("TorusMesh_bkyto")
