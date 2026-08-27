@@ -29,6 +29,10 @@ window/size/viewport_height=240
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/psxlike/plugin.cfg")
+
 [global_group]
 
 psx_light=""
