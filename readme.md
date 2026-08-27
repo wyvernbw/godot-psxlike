@@ -1,6 +1,8 @@
 # Godot PSX-like
 
-<img style="image-rendering: pixelated;" src="./preview.gif" alt="Preview of PSX rendering">
+<center>
+  <img style="image-rendering: pixelated;" src="./preview.gif" alt="Preview of PSX rendering">
+<center/>
 
 Read the article explaining the approach: ![https://calinp.eu/blog/psx-type-rendering/](https://calinp.eu/blog/psx-type-rendering/)
 

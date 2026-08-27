@@ -5,7 +5,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select"):
 		take_screenshot()
 	if event.is_action_pressed("record"):
-		record_gif()
+		record_gif(60*8)
 
 
 func take_screenshot() -> void:
