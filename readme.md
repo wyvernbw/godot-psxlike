@@ -6,7 +6,7 @@
   Accurate PS1 rendering for Godot 4+
 </div>
 
-Read the article explaining the approach: ![https://calinp.eu/blog/psx-type-rendering/](https://calinp.eu/blog/psx-type-rendering/)
+Read the article explaining the approach: [https://calinp.eu/blog/psx-type-rendering/](https://calinp.eu/blog/psx-type-rendering/)
 
 Notable Features:
 - Accurate vertex snapping 
