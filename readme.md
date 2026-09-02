@@ -20,4 +20,6 @@ Notable Features:
 
 1. Clone the repo
 2. Copy the `addons/psxlike` folder to your `addons` folder
-3. Enable the plugin in Project Settings
+3. Enable the plugin in Project Settings and reload the project
+4. Use the `psx_opaque` or `psx_transparent` materials from the `psxlike` folder
+5. add any lights that you want to interact with the renderer to the `psx_light` group
