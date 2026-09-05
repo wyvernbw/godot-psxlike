@@ -48,7 +48,7 @@ render_priority = 0
 shader = SubResource("Shader_5g6qc")
 
 [sub_resource type="QuadMesh" id="QuadMesh_cn6ar"]
-lightmap_size_hint = Vector2i(27, 27)
+lightmap_size_hint = Vector2i(32, 32)
 size = Vector2(6, 6)
 subdivide_width = 2
 subdivide_depth = 2
@@ -98,9 +98,12 @@ instance_shader_parameters/fog_opt_out = false
 instance_shader_parameters/modulate_tint = Color(0.5019608, 0.5019608, 0.5019608, 1)
 instance_shader_parameters/shading = 1
 instance_shader_parameters/tex_id = 0
+instance_shader_parameters/texture_repeat = true
 instance_shader_parameters/texturing = 0
 instance_shader_parameters/use_dither = true
 instance_shader_parameters/use_modulation = true
+instance_shader_parameters/uv_offset = Vector2(0, 0)
+instance_shader_parameters/uv_scale = Vector2(2, 2)
 mesh = SubResource("QuadMesh_cn6ar")
 surface_material_override/0 = ExtResource("2_bkyto")
 
@@ -120,6 +123,7 @@ instance_shader_parameters/shading = 1
 instance_shader_parameters/tex_id = 1
 instance_shader_parameters/use_dither = true
 instance_shader_parameters/use_modulation = true
+instance_shader_parameters/uv_offset = Vector2(0, 0)
 mesh = SubResource("SphereMesh_ala5m")
 surface_material_override/0 = ExtResource("2_bkyto")
 
@@ -165,7 +169,7 @@ bobbing_dist = 1.0
 [node name="coffee_bag_03" parent="." unique_id=364752854 instance=ExtResource("6_gmcfr")]
 transform = Transform3D(0.60621774, 0, -0.35, 0, 0.7, 0, 0.35, 0, 0.60621774, 0.61089313, 0.25103235, 0.34118867)
 
-[node name="Cube" parent="coffee_bag_03" index="0" unique_id=691518568]
+[node name="Cube" parent="coffee_bag_03" index="0" unique_id=624099893]
 transform = Transform3D(-0.64225495, 0, -0.76649165, 0, 1.0000001, 0, 0.76649165, 0, -0.64225495, 0, 0, 0)
 material_override = ExtResource("2_bkyto")
 instance_shader_parameters/flat_color = Color(0.85027194, 0.2065781, 0.4553131, 1)
@@ -197,5 +201,7 @@ script = ExtResource("9_ma032")
 mesh = SubResource("SphereMesh_af0gu")
 
 [node name="d0bfe8" type="Node" parent="." unique_id=881398644]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1522051869]
 
 [editable path="coffee_bag_03"]

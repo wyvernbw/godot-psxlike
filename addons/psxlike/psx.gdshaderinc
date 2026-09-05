@@ -26,7 +26,8 @@ vec3 to_rgb5(vec3 color) {
 	return color;
 }
 
-uniform sampler2D[10] textures;
+// array of textures
+uniform sampler2D[255] textures;
 
 instance uniform int tex_id;
 instance uniform bool use_dither;
@@ -35,9 +36,14 @@ const int SHADING_FLAT = 0;
 const int SHADING_GORAUD = 1;
 instance uniform int shading: hint_enum("flat", "goraud") = 0;
 instance uniform vec4 flat_color: source_color;
+group_uniforms TextureOptions;
 const int TEX_TEXTURED = 0;
 const int TEX_UNTEXTURED = 1;
 instance uniform int texturing: hint_enum("textured", "untextured") = 0;
+instance uniform vec2 uv_scale = vec2(1.0);
+instance uniform vec2 uv_offset = vec2(0.0);
+instance uniform bool texture_repeat = false;
+group_uniforms;
 
 instance uniform bool use_modulation = false;
 instance uniform vec4 modulate_tint: source_color = vec4(0.5, 0.5, 0.5, 1.0);
@@ -163,7 +169,7 @@ void vertex() {
 	
 }
 
-vec3 get_albedo(vec4 vert_color, sampler2D tex, vec2 uv) {
+vec3 get_albedo(vec4 vert_color, vec2 uv) {
 	if (texturing == TEX_UNTEXTURED) {
 		switch (shading) {
 			case SHADING_FLAT: {
@@ -175,8 +181,14 @@ vec3 get_albedo(vec4 vert_color, sampler2D tex, vec2 uv) {
 		}
 	}
 	
-	ivec2 texcoord = ivec2(uv * vec2(textureSize(textures[tex_id], 0).xy));
+	uv = uv * uv_scale + uv_offset;
+	ivec2 texsize = textureSize(textures[tex_id], 0);
+	ivec2 texcoord = ivec2(uv * vec2(texsize));
+	if (texture_repeat) {
+		texcoord %= texsize;
+	}
 	vec3 color = texelFetch(textures[tex_id], texcoord, 0).rgb;
+	
 	
 	if (use_modulation) {
 		color.rgb *= 2.0 * from_linear(vert_color.rgb * modulate_tint.rgb);
@@ -223,7 +235,7 @@ struct PipelineInput {
 PipelineOutput pipeline_transparent(PipelineInput input, sampler2D screen_tex, vec2 screen_uv) {
 	vec2 uv = input.uv / clip_pos.w;
 	PipelineOutput output;
-	output.albedo = get_albedo(input.vert_color, textures[tex_id], uv);
+	output.albedo = get_albedo(input.vert_color, uv);
 	if (fog_kind == FOG_SH) {
 		output.albedo = get_fog_color(output.albedo, fog_factor);
 	}
@@ -240,7 +252,7 @@ PipelineOutput pipeline_transparent(PipelineInput input, sampler2D screen_tex, v
 PipelineOutput pipeline_opaque(PipelineInput input) {
 	vec2 uv = input.uv / clip_pos.w;
 	PipelineOutput output;
-	output.albedo = get_albedo(input.vert_color, textures[tex_id], uv);
+	output.albedo = get_albedo(input.vert_color, uv);
 	if (fog_kind == FOG_SH) {
 		output.albedo = get_fog_color(output.albedo, fog_factor / clip_pos.w);
 	}
